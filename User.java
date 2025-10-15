@@ -12,9 +12,9 @@ public class User implements ActionListener{
 	static User u = new User();
 	static JFrame LOGINframe = new JFrame();
 	static JFrame BROWSERframe = new JFrame();
-	
 	static JTextField user = new JTextField();
 	static JTextField pass =new JTextField();
+
 	String username;
 	String password;
 	int role;
@@ -24,17 +24,15 @@ public class User implements ActionListener{
 	}
 
 	public static void login() {
-		
-		user = new JTextField();
-		pass =new JTextField();
-		
+
 		JLabel title = new JLabel();
+		JLabel titleB = new JLabel();
 		JLabel info = new JLabel();
 		JButton guest = new JButton("Guest");
 		JButton login = new JButton("Login");
 		JLabel userLabel = new JLabel();
 		JLabel passLabel = new JLabel();
-				
+
 		LOGINframe.setTitle("K A I G A N App_Catalogue Log In");
 		LOGINframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		LOGINframe.setSize(550,550);
@@ -43,21 +41,21 @@ public class User implements ActionListener{
 		LOGINframe.getContentPane().setBackground(new Color (255, 214, 178));
 		LOGINframe.setLocationRelativeTo(null);
 		LOGINframe.setLayout(null);
-		
+
 		userLabel.setText("Username");
 		userLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		userLabel.setBounds(137, 105, 275, 60);
-		
+
 		user.setBounds(137, 150, 275, 60);
 		user.setFont(new Font("Arial", Font.ITALIC, 24));
 
 		passLabel.setText("Password");
 		passLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		passLabel.setBounds(137, 205, 275, 60);
-		
+
 		pass.setBounds(137, 250, 275, 60);
 		pass.setFont(new Font("Arial", Font.ITALIC, 24));
-		
+
 		guest.setBounds(275, 450, 275, 30);
 		guest.addActionListener(u);
 
@@ -71,6 +69,10 @@ public class User implements ActionListener{
 		title.setText("K-A-I-G-A-N");
 		title.setFont(new Font("Arial", Font.BOLD, 48));
 		title.setBounds(136, 20, 450, 60);
+		
+		titleB.setText("App Catalogue");
+		titleB.setFont(new Font("Arial", Font.BOLD, 24));
+		titleB.setBounds(190, 60, 450, 60);
 
 		LOGINframe.add(guest);
 		LOGINframe.add(login);
@@ -80,13 +82,14 @@ public class User implements ActionListener{
 		LOGINframe.add(passLabel);
 		LOGINframe.add(info);
 		LOGINframe.add(title);
+		LOGINframe.add(titleB);
 		LOGINframe.setVisible(true);
 	}
 
 
 	public static void browser(int role) {
 		JButton logout = new JButton("Logout");
-		
+
 		BROWSERframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		BROWSERframe.setSize(1400,800);
 		BROWSERframe.setResizable(false);
@@ -104,14 +107,14 @@ public class User implements ActionListener{
 			BROWSERframe.setTitle("K A I G A N App_Catalogue");
 			BROWSERframe.getContentPane().setBackground(new Color (255, 214, 178));
 		}
-		
+
 		logout.setBounds(1290, 0, 100, 40);
 		logout.addActionListener(u);
-		
+
 		BROWSERframe.add(logout);
 		BROWSERframe.setVisible(true);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		String s = e.getActionCommand();
 		if (s.equals("Login")) {
@@ -143,7 +146,8 @@ public class User implements ActionListener{
 		else if (s.equals("Logout")) {
 			BROWSERframe.setVisible(false);
 			login();
-			
+
 		}
 	}
 }
+
