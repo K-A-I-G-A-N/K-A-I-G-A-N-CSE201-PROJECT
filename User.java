@@ -9,12 +9,12 @@ import javax.swing.JTextField;
 
 public class User implements ActionListener{
 
-	static JButton guest;
-	static JButton login;
-	static JTextField user = new JTextField("username");
-	static JTextField pass =new JTextField("password");
-	static JFrame frame = new JFrame();
-
+	static User u = new User();
+	static JFrame LOGINframe = new JFrame();
+	static JFrame BROWSERframe = new JFrame();
+	
+	static JTextField user = new JTextField();
+	static JTextField pass =new JTextField();
 	String username;
 	String password;
 	int role;
@@ -24,107 +24,126 @@ public class User implements ActionListener{
 	}
 
 	public static void login() {
-		User u = new User();
-
-		frame.setTitle("K A I G A N App_Catalogue Log In");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(550,550);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setBackground(new Color (255, 214, 178));
-		frame.setLocationRelativeTo(null);
-
+		
+		user = new JTextField();
+		pass =new JTextField();
+		
+		JLabel title = new JLabel();
+		JLabel info = new JLabel();
+		JButton guest = new JButton("Guest");
+		JButton login = new JButton("Login");
+		JLabel userLabel = new JLabel();
+		JLabel passLabel = new JLabel();
+				
+		LOGINframe.setTitle("K A I G A N App_Catalogue Log In");
+		LOGINframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		LOGINframe.setSize(550,550);
+		LOGINframe.setResizable(false);
+		LOGINframe.setLocationRelativeTo(null);
+		LOGINframe.getContentPane().setBackground(new Color (255, 214, 178));
+		LOGINframe.setLocationRelativeTo(null);
+		LOGINframe.setLayout(null);
+		
+		userLabel.setText("Username");
+		userLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		userLabel.setBounds(137, 105, 275, 60);
+		
 		user.setBounds(137, 150, 275, 60);
 		user.setFont(new Font("Arial", Font.ITALIC, 24));
 
+		passLabel.setText("Password");
+		passLabel.setFont(new Font("Arial", Font.BOLD, 24));
+		passLabel.setBounds(137, 205, 275, 60);
+		
 		pass.setBounds(137, 250, 275, 60);
 		pass.setFont(new Font("Arial", Font.ITALIC, 24));
-
-		guest = new JButton("Guest");
+		
 		guest.setBounds(275, 450, 275, 30);
 		guest.addActionListener(u);
 
-		login = new JButton("Login");
 		login.setBounds(0, 450, 275, 30);
 		login.addActionListener(u);
 
-		JLabel label = new JLabel();
-		label.setText("Inset Admin/Mod login info or press guest button to continue");
-		label.setFont(new Font("Arial", Font.ITALIC, 16));
-		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setVerticalAlignment(JLabel.BOTTOM);
+		info.setText("Insert Admin/Mod login info or press Guest button to continue.");
+		info.setFont(new Font("Arial", Font.ITALIC, 16));
+		info.setBounds(50, 475, 450, 30);
 
-		JLabel title = new JLabel();
-		label.setText("K-A-I-G-A-N");
-		label.setFont(new Font("Arial", Font.BOLD, 48));
-		label.setHorizontalAlignment(JLabel.CENTER);
-		label.setVerticalAlignment(JLabel.TOP);
+		title.setText("K-A-I-G-A-N");
+		title.setFont(new Font("Arial", Font.BOLD, 48));
+		title.setBounds(136, 20, 450, 60);
 
-		JLabel wrong = new JLabel();
-		wrong.setText("Incorrect Username or Password.");
-		wrong.setFont(new Font("Arial", Font.BOLD, 16));
-		wrong.setHorizontalAlignment(JLabel.CENTER);
-		wrong.setVerticalAlignment(JLabel.TOP);
-
-		frame.add(guest);
-		frame.add(login);
-		frame.add(user);
-		frame.add(pass);
-		frame.add(label);
-		frame.setVisible(true);
+		LOGINframe.add(guest);
+		LOGINframe.add(login);
+		LOGINframe.add(user);
+		LOGINframe.add(userLabel);
+		LOGINframe.add(pass);
+		LOGINframe.add(passLabel);
+		LOGINframe.add(info);
+		LOGINframe.add(title);
+		LOGINframe.setVisible(true);
 	}
 
 
+	public static void browser(int role) {
+		JButton logout = new JButton("Logout");
+		
+		BROWSERframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BROWSERframe.setSize(1400,800);
+		BROWSERframe.setResizable(false);
+		BROWSERframe.setLocationRelativeTo(null);
+		BROWSERframe.setLayout(null);
+
+		if(role==1) {
+			BROWSERframe.setTitle("K A I G A N App_Catalogue MOD");
+			BROWSERframe.getContentPane().setBackground(new Color (178, 205, 255));
+		}
+		else if(role==2) {
+			BROWSERframe.setTitle("K A I G A N App_Catalogue ADMIN");
+			BROWSERframe.getContentPane().setBackground(new Color (255, 143, 143));}
+		else {
+			BROWSERframe.setTitle("K A I G A N App_Catalogue");
+			BROWSERframe.getContentPane().setBackground(new Color (255, 214, 178));
+		}
+		
+		logout.setBounds(1290, 0, 100, 40);
+		logout.addActionListener(u);
+		
+		BROWSERframe.add(logout);
+		BROWSERframe.setVisible(true);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		String s = e.getActionCommand();
 		if (s.equals("Login")) {
 			username = (user.getText());
 			password = (pass.getText());
 
-			//Mess with excel database for this
+			//Mess with excel database for thisj
 			if(username.equals("Maikeru")) {
 				if(password.equals("PikoPiko")) {
 					role=2;
-					frame.setVisible(false);
+					LOGINframe.setVisible(false);
 					browser(role);
 				}
 			}
 			if(username.equals("Niko")) {
 				if(password.equals("Momiji")) {
 					role=1;
-					frame.setVisible(false);
+					LOGINframe.setVisible(false);
 					browser(role);
 				}
 			}
 			//above code is DUMMY VALUES	
 
-		} else {
-			frame.setVisible(false);
+		} else if (s.equals("Guest")) {
+			LOGINframe.setVisible(false);
 			role=0;
 			browser(role);
 		}
-	}
-
-
-	public static void browser(int role) {
-		JFrame browserFrame = new JFrame();
-		browserFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		browserFrame.setSize(1400,800);
-		browserFrame.setResizable(false);
-		browserFrame.setLocationRelativeTo(null);
-
-		if(role==1) {
-			browserFrame.setTitle("K A I G A N App_Catalogue MOD");
-			browserFrame.getContentPane().setBackground(new Color (178, 205, 255));
+		else if (s.equals("Logout")) {
+			BROWSERframe.setVisible(false);
+			login();
+			
 		}
-		else if(role==2) {
-			browserFrame.setTitle("K A I G A N App_Catalogue ADMIN");
-			browserFrame.getContentPane().setBackground(new Color (255, 143, 143));}
-		else {
-			browserFrame.setTitle("K A I G A N App_Catalogue");
-			browserFrame.getContentPane().setBackground(new Color (255, 214, 178));
-		}
-		browserFrame.setVisible(true);
 	}
 }
-
