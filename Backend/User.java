@@ -2,6 +2,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +27,7 @@ public class User implements ActionListener{
 		login();
 	}
 
+	
 	public static void login() {
 
 		JLabel title = new JLabel();
@@ -48,14 +53,16 @@ public class User implements ActionListener{
 
 		user.setBounds(137, 150, 275, 60);
 		user.setFont(new Font("Arial", Font.ITALIC, 24));
-
+		user.setText("");
+		
 		passLabel.setText("Password");
 		passLabel.setFont(new Font("Arial", Font.BOLD, 24));
 		passLabel.setBounds(137, 205, 275, 60);
 
 		pass.setBounds(137, 250, 275, 60);
 		pass.setFont(new Font("Arial", Font.ITALIC, 24));
-
+		pass.setText("");
+		
 		guest.setBounds(275, 450, 275, 30);
 		guest.addActionListener(u);
 
@@ -69,7 +76,7 @@ public class User implements ActionListener{
 		title.setText("K-A-I-G-A-N");
 		title.setFont(new Font("Arial", Font.BOLD, 48));
 		title.setBounds(136, 20, 450, 60);
-		
+
 		titleB.setText("App Catalogue");
 		titleB.setFont(new Font("Arial", Font.BOLD, 24));
 		titleB.setBounds(190, 60, 450, 60);
@@ -115,6 +122,7 @@ public class User implements ActionListener{
 		BROWSERframe.setVisible(true);
 	}
 
+	
 	public void actionPerformed(ActionEvent e) {
 		String check;
 		String s = e.getActionCommand();
@@ -151,5 +159,4 @@ public class User implements ActionListener{
 		}
 	}
 }
-
 
