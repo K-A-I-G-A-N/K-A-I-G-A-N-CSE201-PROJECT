@@ -116,28 +116,29 @@ public class User implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		String check;
 		String s = e.getActionCommand();
 		if (s.equals("Login")) {
-			username = (user.getText());
-			password = (pass.getText());
-
-			//Mess with excel database for thisj
-			if(username.equals("Maikeru")) {
-				if(password.equals("PikoPiko")) {
-					role=2;
-					LOGINframe.setVisible(false);
-					browser(role);
+			File a = new File("AdminNames.txt");
+			try {	
+				@SuppressWarnings("resource")
+				Scanner input = new Scanner(a);
+				username = (user.getText());
+				password = (pass.getText());
+				while(input.hasNextLine()) {
+					check = input.nextLine();
+					if(check.equals(username)) {
+						check = input.nextLine();
+						if(check.equals(password)) {
+							role = input.nextInt();
+							LOGINframe.setVisible(false);
+							browser(role);							
+						}
+					}
 				}
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
 			}
-			if(username.equals("Niko")) {
-				if(password.equals("Momiji")) {
-					role=1;
-					LOGINframe.setVisible(false);
-					browser(role);
-				}
-			}
-			//above code is DUMMY VALUES	
-
 		} else if (s.equals("Guest")) {
 			LOGINframe.setVisible(false);
 			role=0;
@@ -150,4 +151,5 @@ public class User implements ActionListener{
 		}
 	}
 }
+
 
