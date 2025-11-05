@@ -6,81 +6,176 @@ import java.util.*;
 
 public class LoginFrame {
 
-    private static JButton guestAccessButton;
-    private static JButton logInButton;
-    private static JButton createAccountButton;
-    private static JTextField usernameField;
-    private static JPasswordField passwordField;
-    private static JLabel messageLabel;
+	private static JButton fullButton;
+	private static JButton windowButton;
+	private static JButton guestAccessButton;
+	private static JButton logInButton;
+	private static JButton createAccountButton;
+	private static JTextField usernameField;
+	private static JPasswordField passwordField;
+	private static JLabel messageLabel;
 
-    public static void main(String[] args) {
-        JFrame login = new JFrame();
-        login.setTitle("K A I G A N App Catalogue Log In");
-        login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        login.setSize(550, 550);
-        login.setResizable(false);
-        login.getContentPane().setBackground(new Color(255, 214, 178));
-        login.setLayout(null);
+	public static void main(String[] args) {
+		JFrame login = new JFrame();
+		login.setTitle("K A I G A N App Catalogue Log In");
+		login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		login.setSize(550, 450);
+		login.setResizable(false);
+		login.setLocationRelativeTo(null);
+		login.getContentPane().setBackground(new Color(255, 214, 178));
+		login.setLayout(null);
 
-        JLabel titleLabel = new JLabel("Log In or Create Account");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
-        titleLabel.setBounds(130, 40, 400, 40);
-        login.add(titleLabel);
+		fullButton = new JButton("Fullscreen");
+		fullButton.setBounds(0, 390, 95, 25);
+		login.add(fullButton);
 
-        JLabel userLabel = new JLabel("Username:");
-        userLabel.setBounds(100, 150, 100, 30);
-        login.add(userLabel);
+		windowButton = new JButton("Window");
+		windowButton.setBounds(0, 750, 95, 65);
+		login.add(windowButton);
+		windowButton.setVisible(false);
 
-        usernameField = new JTextField();
-        usernameField.setBounds(200, 150, 200, 30);
-        login.add(usernameField);
+		JLabel titleLabel = new JLabel("Log In or Create Account");
+		titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+		titleLabel.setBounds(130, 40, 400, 40);
+		login.add(titleLabel);
 
-        JLabel passLabel = new JLabel("Password:");
-        passLabel.setBounds(100, 200, 100, 30);
-        login.add(passLabel);
+		JLabel userLabel = new JLabel("Username:");
+		userLabel.setBounds(100, 150, 100, 30);
+		userLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		login.add(userLabel);
 
-        passwordField = new JPasswordField();
-        passwordField.setBounds(200, 200, 200, 30);
-        login.add(passwordField);
+		usernameField = new JTextField();
+		usernameField.setBounds(200, 150, 200, 30);
+		usernameField.setFont(new Font("Arial", Font.BOLD, 16));
+		login.add(usernameField);
 
-        messageLabel = new JLabel("");
-        messageLabel.setBounds(100, 250, 400, 30);
-        messageLabel.setForeground(Color.RED);
-        login.add(messageLabel);
+		JLabel passLabel = new JLabel("Password:");
+		passLabel.setBounds(100, 200, 100, 30);
+		passLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		login.add(passLabel);
 
-        logInButton = new JButton("Login");
-        logInButton.setBounds(100, 300, 100, 30);
-        login.add(logInButton);
+		passwordField = new JPasswordField();
+		passwordField.setBounds(200, 200, 200, 30);
+		passwordField.setFont(new Font("Arial", Font.BOLD, 16));
+		login.add(passwordField);
 
-        createAccountButton = new JButton("Create Account");
-        createAccountButton.setBounds(210, 300, 150, 30);
-        login.add(createAccountButton);
+		messageLabel = new JLabel("");
+		messageLabel.setBounds(100, 250, 400, 30);
+		messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		messageLabel.setForeground(Color.RED);
+		login.add(messageLabel);
 
-        guestAccessButton = new JButton("Guest");
-        guestAccessButton.setBounds(370, 300, 100, 30);
-        login.add(guestAccessButton);
+		logInButton = new JButton("Login");
+		logInButton.setBounds(100, 300, 100, 30);
+		logInButton.setFont(new Font("Arial", Font.BOLD, 14));
+		login.add(logInButton);
 
-        // ----- Simple action listeners -----
-        logInButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                determine(login);
-            }
-        });
+		createAccountButton = new JButton("Create Account");
+		createAccountButton.setBounds(210, 300, 150, 30);
+		createAccountButton.setFont(new Font("Arial", Font.BOLD, 14));
+		login.add(createAccountButton);
 
-        createAccountButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                createAccount();
-            }
-        });
+		guestAccessButton = new JButton("Guest");
+		guestAccessButton.setBounds(370, 300, 100, 30);
+		guestAccessButton.setFont(new Font("Arial", Font.BOLD, 14));
+		login.add(guestAccessButton);
 
-        guestAccessButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                goToGuest(login);
-            }
-        });
+		// ----- Simple action listeners -----
+		logInButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				determine(login);
+			}
+		});
 
-        login.setVisible(true);
-    }
+		createAccountButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				createAccount();
+			}
+		});
+
+		guestAccessButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				goToGuest(login);
+			}
+		});
+
+		fullButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				login.setSize(1450, 850); 
+				login.setLocationRelativeTo(null);	
+				
+				titleLabel.setBounds(368, 76, 1080, 76);
+				titleLabel.setFont(new Font("Arial", Font.BOLD, 58));
+				
+				userLabel.setBounds(264, 284, 264, 57);
+				userLabel.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				passLabel.setBounds(264, 378, 264, 57);
+				passLabel.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				usernameField.setBounds(528, 284, 528, 79);
+				usernameField.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				passwordField.setBounds(528, 378, 528, 79);
+				passwordField.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				
+				messageLabel.setBounds(264, 473, 1056, 79);	
+				messageLabel.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				logInButton.setBounds(264, 567, 264, 57);
+				logInButton.setFont(new Font("Arial", Font.BOLD, 42));	
+				
+				createAccountButton.setFont(new Font("Arial", Font.BOLD, 42));
+				createAccountButton.setBounds(554, 567, 396, 57);
+				
+				guestAccessButton.setFont(new Font("Arial", Font.BOLD, 42));
+				guestAccessButton.setBounds(977, 567, 264, 57);	
+							
+				windowButton.setVisible(true);
+				fullButton.setVisible(false);
+			}
+		});
+
+		windowButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {				
+				login.setSize(550, 450);
+				login.setLocationRelativeTo(null);
+				
+				titleLabel.setBounds(130, 40, 400, 40);
+				titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
+				
+				userLabel.setBounds(100, 150, 100, 30);
+				userLabel.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				usernameField.setBounds(200, 150, 200, 30);
+				usernameField.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				passLabel.setBounds(100, 200, 100, 30);
+				passLabel.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				passwordField.setBounds(200, 200, 200, 30);
+				passwordField.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				messageLabel.setBounds(100, 250, 400, 30);	
+				messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				createAccountButton.setBounds(210, 300, 150, 30);
+				createAccountButton.setFont(new Font("Arial", Font.BOLD, 14));
+				
+				guestAccessButton.setBounds(370, 300, 100, 30);
+				guestAccessButton.setFont(new Font("Arial", Font.BOLD, 14));
+				
+				logInButton.setFont(new Font("Arial", Font.BOLD, 14));
+				logInButton.setBounds(100, 300, 100, 30);
+	
+				windowButton.setVisible(false);
+				fullButton.setVisible(true);				
+			}
+		});
+
+		login.setVisible(true);
+	}
 
     // checking login info
     public static void determine(JFrame login) {
@@ -160,7 +255,7 @@ public class LoginFrame {
         }
     }
 
-    // Giving access to Guess
+    // Giving access to Guest
     public static void goToGuest(JFrame login) {
         goToAppPage(login);
     }
