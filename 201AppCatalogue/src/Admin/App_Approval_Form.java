@@ -88,12 +88,19 @@ public class App_Approval_Form {
 		Platforms.setFont(new Font("Arial", Font.BOLD, 22));
 		admin.add(Platforms);
 
+		/** Add some Jlabels inaccordence with the other app details with this. also add variables
+		 *
+		 *  JLabel ETC = new JLabel("ETX: " + ETX);
+		 *  ETC.setBounds(50,150,650,50);
+		 *  ETC.setFont(new Font("Arial", Font.BOLD, 22));
+		 *  admin.add(ETC);
+		 *
+		 */
+		
 		rejectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				admin.setVisible(false);
 				//does nothing as prompt is rejected
-
-
 				//perhaps do If statement for if you want to continue
 				Admin.adminAccess();
 
