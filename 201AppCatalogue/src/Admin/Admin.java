@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-//NEED TO RESIZE SOME ELEMENTS FIRST
 
 
 public class Admin {
@@ -49,12 +48,14 @@ public class Admin {
 
 		JButton Logout = new JButton("Logout");
 		Logout.setBounds(0, 300, 550, 35);
+		Logout.setFont(new Font("Arial", Font.BOLD, 16));
 		admin.add(Logout);
-		
+
 		JButton Review = new JButton("Reveiw");
 		Review.setBounds(0, 250, 550, 35);
+		Review.setFont(new Font("Arial", Font.BOLD, 16));
 		admin.add(Review);
-		
+
 		fullButton = new JButton("Fullscreen");
 		fullButton.setBounds(0, 390, 95, 25);
 		admin.add(fullButton);
@@ -63,7 +64,7 @@ public class Admin {
 		windowButton.setBounds(0, 750, 95, 65);
 		admin.add(windowButton);
 		windowButton.setVisible(false);
-		
+
 		File File = new File("request.txt");
 		Scanner reader = null;
 		try {
@@ -76,12 +77,11 @@ public class Admin {
 		}
 		if(request=="") {
 			message.setText("There are no new requests");
+			Review.setVisible(false);
 		} else {
 			message.setText("   There are new requests");
 		}
 		admin.setVisible(true);
-		//Add logout button & maybe resize buttons
-
 
 		Logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -101,6 +101,29 @@ public class Admin {
 			}
 		});
 
+		fullButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {				
+
+				admin.setSize(1400, 850);
+				admin.setLocationRelativeTo(null);
+				Title.setBounds(513, 76, 375, 76);
+				Title.setFont(new Font("Arial", Font.BOLD, 58));
+
+				message.setBounds(381, 160, 1052, 76);
+				message.setFont(new Font("Arial", Font.BOLD, 47));
+				
+				Logout.setBounds(0, 567, 1447, 66);
+				Logout.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				Review.setBounds(0, 473, 1447, 66);
+				Review.setFont(new Font("Arial", Font.BOLD, 42));
+				
+				windowButton.setVisible(true);
+				fullButton.setVisible(false);
+			}	
+		});
+
+
 		windowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {				
 				admin.setSize(550, 450);
@@ -111,11 +134,15 @@ public class Admin {
 
 				message.setBounds(145, 80, 400, 40);
 				message.setFont(new Font("Arial", Font.BOLD, 18));
-
-
-
+				
+				Logout.setBounds(0, 300, 550, 35);
+				Logout.setFont(new Font("Arial", Font.BOLD, 16));
+				
+				Review.setBounds(0, 250, 550, 35);
+				Review.setFont(new Font("Arial", Font.BOLD, 16));
+				
 				windowButton.setVisible(false);
-				fullButton.setVisible(true);				
+				fullButton.setVisible(true);
 			}
 		});
 
