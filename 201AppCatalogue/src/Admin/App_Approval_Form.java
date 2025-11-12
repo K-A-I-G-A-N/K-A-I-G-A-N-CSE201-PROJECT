@@ -1,5 +1,6 @@
 package Admin;
 
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import javax.swing.JLabel;
 public class App_Approval_Form {
 
 	static String Requests = "";
+	
 	static String Name;
 	static String Publisher;
 	static String Platfroms;
@@ -25,11 +27,11 @@ public class App_Approval_Form {
 	public static void main(String[] args) throws IOException{
 
 		File request = new File("Request.txt");
-		requestCheck(request);
+		Form(request);
 
 	}
 
-	public static void requestCheck(File request) throws FileNotFoundException, IOException {
+	public static void Form(File request) throws FileNotFoundException, IOException {
 
 		File filereq = request;
 
@@ -62,17 +64,6 @@ public class App_Approval_Form {
 		admin.getContentPane().setBackground(new Color (255, 143, 143));
 		admin.setLayout(null);
 
-		JButton approveButton = new JButton("Approve");
-		approveButton.setBounds(0,700,650,50);
-		approveButton.setFont(new Font("Arial", Font.BOLD, 22));
-		admin.add(approveButton);
-
-		JButton rejectButton = new JButton("Reject");
-		rejectButton.setBounds(750,700,640,50);
-		admin.add(rejectButton);
-		rejectButton.setFont(new Font("Arial", Font.BOLD, 22));
-		admin.setVisible(true);
-
 		JLabel AppName = new JLabel("App Name: " + Name);
 		AppName.setBounds(50,50,650,50);
 		AppName.setFont(new Font("Arial", Font.BOLD, 22));
@@ -83,7 +74,7 @@ public class App_Approval_Form {
 		DeveloperName.setFont(new Font("Arial", Font.BOLD, 22));
 		admin.add(DeveloperName);
 
-		JLabel Platforms = new JLabel("Platforms: " + Platfroms);
+		JLabel Platforms = new JLabel("Compatable Platforms: " + Platfroms);
 		Platforms.setBounds(50,150,650,50);
 		Platforms.setFont(new Font("Arial", Font.BOLD, 22));
 		admin.add(Platforms);
@@ -93,9 +84,20 @@ public class App_Approval_Form {
 		 *  JLabel ETC = new JLabel("ETX: " + ETX);
 		 *  ETC.setBounds(50,150,650,50);
 		 *  ETC.setFont(new Font("Arial", Font.BOLD, 22));
-		 *  admin.add(ETC);
+		 *  admin.add(E);
 		 *
 		 */
+		
+		JButton approveButton = new JButton("Approve");
+		approveButton.setBounds(0,700,650,50);
+		approveButton.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(approveButton);
+
+		JButton rejectButton = new JButton("Reject");
+		rejectButton.setBounds(750,700,640,50);
+		admin.add(rejectButton);
+		rejectButton.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.setVisible(true);
 		
 		rejectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
