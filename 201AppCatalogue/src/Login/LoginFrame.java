@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 import Admin.Admin;
+import Moderator.Moderator;
+import Guest.Guest;
 
 public class LoginFrame {
 
@@ -17,6 +19,10 @@ public class LoginFrame {
 	private static JPasswordField passwordField;
 	private static JLabel messageLabel;
 
+	public static void main(String[] args){	
+	Login();
+	}
+	
 	public static void Login() {
 		JFrame login = new JFrame();
 		login.setTitle("K A I G A N App Catalogue Log In");
@@ -212,7 +218,7 @@ public class LoginFrame {
 			if (found) {
 				messageLabel.setForeground(Color.GREEN);
 				messageLabel.setText("Login successful!");
-				goToAppPage(login);
+				Guest.guestAccess();
 			} else {
 				messageLabel.setForeground(Color.RED);
 				messageLabel.setText("Incorrect username or password.");
@@ -260,27 +266,18 @@ public class LoginFrame {
 
 	// Giving access to Guess
 	public static void goToGuest(JFrame login) {
-		goToAppPage(login);
+		login.dispose();
+		Guest.guestAccess();
 	}
 
-	// page to app display
-	public static void goToAppPage(JFrame login) {
+
+	public static void goToAdmin(JFrame login) {
 		login.dispose();
-
-		JFrame appPage = new JFrame("App Catalogue");
-		appPage.setSize(550, 550);
-		appPage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		appPage.setLocationRelativeTo(null);
-		appPage.getContentPane().setBackground(new Color(255, 240, 220));
-
-		JLabel label = new JLabel("Welcome! Apps will be displayed here soon.", SwingConstants.CENTER);
-		label.setFont(new Font("Arial", Font.PLAIN, 18));
-		appPage.add(label);
-
-		appPage.setVisible(true);
+		Admin.adminAccess();
 	}
 	
-	public static void goToAdmin(JFrame login) {
-		Admin.adminAccess();
+	public static void goToMod(JFrame login) {
+		login.dispose();
+		Moderator.modAccess();
 	}
 }
