@@ -183,7 +183,6 @@ public class LoginFrame {
         // Add search bar at top
         SearchBar searchBar = new SearchBar(appPage);
 
-        // 🔹 App icon panel (curved edges)
         JPanel appIcon = new JPanel() {
             private Image image = new ImageIcon("sm_5b321c99945a2.jpg").getImage()
                     .getScaledInstance(120, 120, Image.SCALE_SMOOTH);
@@ -202,7 +201,7 @@ public class LoginFrame {
                 g2.dispose();
             }
         };
-        appIcon.setBounds(20, 100, 120, 120);
+        appIcon.setBounds(55, 200, 120, 120);
         appIcon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // 🔹 Clicking the app image opens description
