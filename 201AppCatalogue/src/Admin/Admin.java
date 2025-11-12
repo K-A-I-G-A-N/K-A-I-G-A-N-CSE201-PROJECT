@@ -85,7 +85,7 @@ public class Admin {
 
 		Logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				admin.setVisible(false); 
+				admin.dispose(); 
 				LoginFrame.Login();
 			}
 		});
@@ -111,6 +111,7 @@ public class Admin {
 
 				message.setBounds(381, 160, 1052, 76);
 				message.setFont(new Font("Arial", Font.BOLD, 47));
+				
 				
 				Logout.setBounds(0, 567, 1447, 66);
 				Logout.setFont(new Font("Arial", Font.BOLD, 42));
