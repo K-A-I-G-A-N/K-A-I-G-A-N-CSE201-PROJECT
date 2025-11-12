@@ -1,16 +1,16 @@
 package Admin;
-
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,25 +18,25 @@ import javax.swing.JLabel;
 public class App_Approval_Form {
 
 	static String Requests = "";
-	
 	static String Name;
-	static String Publisher;
+	static String Genre;
+	static String Description;
 	static String Platfroms;
+	static String Publisher;
+	static String Price;
+	static String URI;
+	static String Image = "tmp\\";
+	static File filereq;
 
-	//public static void Form(string AppName, String DeveloperName, String Platforms, String URL, String Price, file RequestDoc) {
 	public static void main(String[] args) throws IOException{
-
 		File request = new File("Request.txt");
 		Form(request);
-
 	}
 
 	public static void Form(File request) throws FileNotFoundException, IOException {
 
-		File filereq = request;
-
+		filereq = request;
 		Scanner reader = new Scanner(filereq);
-
 		String line = reader.nextLine();
 
 		while (reader.hasNextLine()) {
@@ -45,8 +45,14 @@ public class App_Approval_Form {
 
 		String[] parts = line.split("~");
 		Name=parts[0];
-		Publisher=parts[1];
-		Platfroms=parts[2];
+		Genre=parts[1];
+		Publisher=parts[2];
+		Price=parts[3];
+		URI=parts[4];
+		Description=parts[5];
+		Platfroms=parts[6];
+		Image=Image+parts[7];
+
 		reader.close();
 
 
@@ -64,30 +70,45 @@ public class App_Approval_Form {
 		admin.getContentPane().setBackground(new Color (255, 143, 143));
 		admin.setLayout(null);
 
-		JLabel AppName = new JLabel("App Name: " + Name);
-		AppName.setBounds(50,50,650,50);
-		AppName.setFont(new Font("Arial", Font.BOLD, 22));
-		admin.add(AppName);
+		JLabel AppNameL = new JLabel("App Name: " + Name);
+		AppNameL.setBounds(50,50,650,50);
+		AppNameL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(AppNameL);
 
-		JLabel DeveloperName = new JLabel("Publisher Name: " + Publisher);
-		DeveloperName.setBounds(50,100,650,50);
-		DeveloperName.setFont(new Font("Arial", Font.BOLD, 22));
-		admin.add(DeveloperName);
+		JLabel GenreL = new JLabel("Genre: " + Genre);
+		GenreL.setBounds(50,100,650,50);
+		GenreL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(GenreL);
 
-		JLabel Platforms = new JLabel("Compatable Platforms: " + Platfroms);
-		Platforms.setBounds(50,150,650,50);
-		Platforms.setFont(new Font("Arial", Font.BOLD, 22));
-		admin.add(Platforms);
+		JLabel DescriptionL = new JLabel("Description: " + Description);
+		DescriptionL.setBounds(50,150,650,50);
+		DescriptionL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(DescriptionL);
 
-		/** Add some Jlabels inaccordence with the other app details with this. also add variables
-		 *
-		 *  JLabel ETC = new JLabel("ETX: " + ETX);
-		 *  ETC.setBounds(50,150,650,50);
-		 *  ETC.setFont(new Font("Arial", Font.BOLD, 22));
-		 *  admin.add(E);
-		 *
-		 */
-		
+		JLabel PublisherL = new JLabel("Publisher: " + Publisher);
+		PublisherL.setBounds(50,200,650,50);
+		PublisherL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(PublisherL);
+
+		JLabel PlatformsL = new JLabel("Compatable Platforms: " + Platfroms);
+		PlatformsL.setBounds(50,250,650,50);
+		PlatformsL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(PlatformsL);
+
+		JLabel URL = new JLabel ("URL: " + URI);
+		URL.setBounds(50,300,650,50);
+		URL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(URL);
+
+		JLabel PriceL = new JLabel ("Price: " +Price);
+		PriceL.setBounds(50,350,650,50);
+		PriceL.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(PriceL);
+
+		JLabel ImageL = new JLabel (new ImageIcon(Image));
+		ImageL.setBounds(400,0,1100,500);
+		admin.add(ImageL);
+
 		JButton approveButton = new JButton("Approve");
 		approveButton.setBounds(0,700,650,50);
 		approveButton.setFont(new Font("Arial", Font.BOLD, 22));
@@ -97,26 +118,74 @@ public class App_Approval_Form {
 		rejectButton.setBounds(750,700,640,50);
 		admin.add(rejectButton);
 		rejectButton.setFont(new Font("Arial", Font.BOLD, 22));
+
+		JButton continueButton = new JButton("Next request");
+		continueButton.setBounds(0,700,650,50);
+		continueButton.setFont(new Font("Arial", Font.BOLD, 22));
+		admin.add(continueButton);
+		continueButton.setVisible(true);
+
+		JButton returnButton = new JButton("Return to Admin frame");
+		returnButton.setBounds(750,700,640,50);
+		admin.add(returnButton);
+		returnButton.setFont(new Font("Arial", Font.BOLD, 22));
+		returnButton.setVisible(true);
+
+
 		admin.setVisible(true);
-		
+
 		rejectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				admin.setVisible(false);
-				//does nothing as prompt is rejected
-				//perhaps do If statement for if you want to continue
-				Admin.adminAccess();
+
+				if(Requests!="") {
+					continueButton.setVisible(true);
+					returnButton.setVisible(true);
+					rejectButton.setVisible(false);
+					approveButton.setVisible(false);
+				}else {
+					admin.dispose();
+					Admin.adminAccess();
+				}
 
 			}});
 
 		approveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
-				//ADD App to app document, same if statement as before.
-				admin.setVisible(false);
-				Admin.adminAccess();
-
-
+				//I will need the CVS file and how it's structured for this
+				try (FileWriter fileWriter = new FileWriter("data.csv", true);
+						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+					bufferedWriter.write("Value1,Value2,Value3");
+					bufferedWriter.newLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				if(Requests!="") {
+					continueButton.setVisible(true);
+					returnButton.setVisible(true);
+					rejectButton.setVisible(false);
+					approveButton.setVisible(false);
+				}else {
+					admin.dispose();
+					Admin.adminAccess();
+				}
 			}});
 
+		returnButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				admin.dispose();
+				Admin.adminAccess();
+			}});
+
+		continueButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				try {
+					Form(filereq);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}});
+		
 	}
 }
