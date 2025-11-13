@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,6 +27,7 @@ public class App_Approval_Form {
 	static String Price;
 	static String URI;
 	static String Image = "tmp\\";
+
 	static File filereq;
 
 	public static void main(String[] args) throws IOException{
@@ -38,7 +40,6 @@ public class App_Approval_Form {
 		filereq = request;
 		Scanner reader = new Scanner(filereq);
 		String line = reader.nextLine();
-
 		while (reader.hasNextLine()) {
 			Requests = Requests + reader.nextLine() + "\n";
 		}
@@ -52,7 +53,7 @@ public class App_Approval_Form {
 		Description=parts[5];
 		Platfroms=parts[6];
 		Image=Image+parts[7];
-
+		File ImageICO = new File(Image);
 		reader.close();
 
 
@@ -138,6 +139,9 @@ public class App_Approval_Form {
 			public void actionPerformed(ActionEvent event) {
 
 				if(Requests!="") {
+					
+					System.out.print(ImageICO.delete());
+					
 					continueButton.setVisible(true);
 					returnButton.setVisible(true);
 					rejectButton.setVisible(false);
@@ -152,11 +156,10 @@ public class App_Approval_Form {
 		approveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 
-				//I will need the CVS file and how it's structured for this
-				try (FileWriter fileWriter = new FileWriter("data.csv", true);
+				try (FileWriter fileWriter = new FileWriter("App Database.csv", true);
 						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-					bufferedWriter.write("Value1,Value2,Value3");
 					bufferedWriter.newLine();
+					bufferedWriter.write(Name+","+Publisher+","+Platfroms+","+URI+","+Price+","+Genre+","+Description+","+Image);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -170,6 +173,7 @@ public class App_Approval_Form {
 					admin.dispose();
 					Admin.adminAccess();
 				}
+				
 			}});
 
 		returnButton.addActionListener(new ActionListener() {
@@ -180,12 +184,15 @@ public class App_Approval_Form {
 
 		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
+
 				try {
+					admin.dispose();
 					Form(filereq);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}});
-		
+
 	}
+
 }
