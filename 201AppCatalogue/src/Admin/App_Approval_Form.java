@@ -56,11 +56,9 @@ public class App_Approval_Form {
 		File ImageICO = new File(Image);
 		reader.close();
 
-
 		PrintWriter Writer = new PrintWriter(filereq);
 		Writer.print(Requests);
 		Writer.close();
-
 
 		JFrame admin = new JFrame();
 		admin.setTitle("ADMIN_App Approval Form");
@@ -132,16 +130,12 @@ public class App_Approval_Form {
 		returnButton.setFont(new Font("Arial", Font.BOLD, 22));
 		returnButton.setVisible(true);
 
-
 		admin.setVisible(true);
 
 		rejectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-
+				ImageICO.delete();
 				if(Requests!="") {
-					
-					System.out.print(ImageICO.delete());
-					
 					continueButton.setVisible(true);
 					returnButton.setVisible(true);
 					rejectButton.setVisible(false);
@@ -150,12 +144,10 @@ public class App_Approval_Form {
 					admin.dispose();
 					Admin.adminAccess();
 				}
-
 			}});
 
 		approveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-
 				try (FileWriter fileWriter = new FileWriter("App Database.csv", true);
 						BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
 					bufferedWriter.newLine();
@@ -163,7 +155,6 @@ public class App_Approval_Form {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 				if(Requests!="") {
 					continueButton.setVisible(true);
 					returnButton.setVisible(true);
@@ -173,7 +164,6 @@ public class App_Approval_Form {
 					admin.dispose();
 					Admin.adminAccess();
 				}
-				
 			}});
 
 		returnButton.addActionListener(new ActionListener() {
@@ -193,10 +183,6 @@ public class App_Approval_Form {
 				}
 			}});
 
-
-
-
 	}
-
 
 }
