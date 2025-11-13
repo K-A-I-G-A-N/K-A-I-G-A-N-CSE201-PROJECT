@@ -8,12 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-
 
 public class Admin {
 	static String request = "";
@@ -123,7 +120,6 @@ public class Admin {
 				fullButton.setVisible(false);
 			}	
 		});
-
 
 		windowButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {				
