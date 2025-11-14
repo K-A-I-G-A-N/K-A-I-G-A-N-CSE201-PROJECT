@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -35,7 +36,7 @@ public class Moderator {
 
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
 		File modFile = FileMaker("reviewMod.txt");
@@ -87,10 +88,10 @@ public class Moderator {
 					return;
 				}
 
-				try (FileWriter writer = new FileWriter(modApprovedFile, true)) {
+				try (FileWriter fw = new FileWriter(modApprovedFile, true)) {
 
-					writer.write(content + System.lineSeparator());
-					writer.write("~" + System.lineSeparator());
+					fw.write(content + System.lineSeparator());
+					fw.write("~" + System.lineSeparator());
 					System.out.println("Text added successfully!");
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -150,15 +151,11 @@ public class Moderator {
 
 	}
 
-	public static File FileMaker(String fileName) throws IOException {
+	public static File FileMaker(String fileName) {
 
-		File madeFile = new File("src/Moderator/" + fileName);
-		
-		 try (FileWriter writer = new FileWriter(madeFile)) { // overwrites the file
-		    	writer.write(" ");
-		    }
+		File modFile = new File("src/Moderator/" + fileName);
 
-		return madeFile;
+		return modFile;
 	}
 
 	public static String[] FileReader() {
@@ -168,40 +165,36 @@ public class Moderator {
 
 	    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 
-	        String line; 
-	        
-	        String fullEntry = "";
-	        String reviewOnly = "";
+	        String line;
+	        StringBuilder fullEntry = new StringBuilder();
+	        StringBuilder reviewOnly = new StringBuilder();
 
 	        boolean readingReview = false;
 
 	        while ((line = reader.readLine()) != null) {
+	        	
+	        	System.out.println("Lines:" + line);
 
-	            if (line.equals("~")) break;   //New entry start
-	            fullEntry += line + "\n"; //For keeping in txt file. Has app names
+	            if (line.trim().equals("~")) break;   
+	            fullEntry.append(line).append("\n");
 
 	            if (readingReview) {
-	                
-	            	reviewOnly += line + "\n"; //For display. No app names
+	                reviewOnly.append(line).append("\n");
 	            }
 
 	          
-	            if (line.endsWith(":")) { //End of app name checker
-	                
-	            	readingReview = true;
+	            if (line.endsWith(":")) {
+	                readingReview = true;
 	            }
 	        }
 
-	        if (fullEntry.trim().isEmpty()) { //Checks if theres no entries
-	            
-	        	result[0] = "";
-	            result[1] = "Nothing left to approve"; 
-	            
+	        if (fullEntry.toString().trim().isEmpty()) {
+	            result[0] = "";
+	            result[1] = "Nothing left to approve";
 	            return result;
 	        }
 
-	        result[0] = fullEntry.toString().trim(); 
-	        
+	        result[0] = fullEntry.toString().trim();
 	        result[1] = reviewOnly.toString().trim();
 
 	    } catch (IOException e) {
@@ -216,27 +209,28 @@ public class Moderator {
 
 	    List<String> lines = Files.readAllLines(txtFile.toPath());
 	    
-	    String onesKept = "";
+	    StringBuilder onesKept = new StringBuilder();
 
 	    boolean pastFirstEntry = false;
 
-	    for (String line : lines) { //Checks through every line in the txt file
+	    for (String line : lines) {
 
 
-	        if (pastFirstEntry == false) {
-	            if (line.equals("~")) { //Checks to see if its reached the end of the first entry
+	    	System.out.println(line);
+	        if (!pastFirstEntry) {
+	            if (line.trim().equals("~")) {
 	            	
 	                pastFirstEntry = true;
 	            }
-	            continue; //Goes to next iteration without appending
+	            continue;
 	        }
 
-	        // If it gets down here its past the first entry so it can start appending
-	        onesKept += line + "\n";
+	        // Copy the remainder of the file
+	        onesKept.append(line).append(System.lineSeparator());
 	    }
 
 	    try (FileWriter writer = new FileWriter(txtFile)) { // overwrites the file
-	    	writer.write(onesKept);
+	    	writer.write(onesKept.toString());
 	    }
 
 	    System.out.println("Top entry deleted.");
