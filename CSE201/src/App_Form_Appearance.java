@@ -222,7 +222,7 @@ public class App_Form_Appearance {
 					appInfo += "~" + appCategoryField.getText().trim() + "~" + appPublisherField.getText().trim() + "~"
 							+ appPriceField.getText().trim() + "~" + appLinkField.getText().trim() + "~"
 							+ appDescriptionField.getText().trim() + '~' + appPlatField.getText().trim() + '~'
-							+ imageIcon.getName();
+							+ "src/newAppInfo/Img_Temp/" + imageIcon.getName();
 
 					File destFolder = new File("src/newAppInfo/Img_Temp");
 
