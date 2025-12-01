@@ -17,6 +17,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Moderator {
@@ -48,13 +49,16 @@ public class Moderator {
 		reviewForm.setSize(550, 600);
 		reviewForm.setResizable(false);
 		reviewForm.setLocationRelativeTo(null);
-		reviewForm.getContentPane().setBackground(new Color(255, 214, 178));
+		reviewForm.getContentPane().setBackground(new Color(57,95,201));
 		reviewForm.setLayout(null);
 
 		JLabel label = new JLabel("Reviews to Approve/Deny");
 		label.setFont(new Font("Arial", Font.BOLD, 22));
 		label.setBounds(130, 20, 400, 40);
+		label.setForeground(Color.WHITE);
 		reviewForm.add(label);
+		
+		
 
 		JTextArea reviewArea = new JTextArea();
 		reviewArea.setEditable(false);
@@ -68,7 +72,13 @@ public class Moderator {
 		displayedContent = FileReader()[1];
 
 		reviewArea.setText(displayedContent);
-		reviewForm.add(reviewArea);
+		
+		JScrollPane scrollpane = new JScrollPane(reviewArea);
+		scrollpane.setBounds(20, 100, 500, 200);
+
+		
+		
+		reviewForm.add(scrollpane);
 
 
 		JButton approveButton = new JButton("Approve");
