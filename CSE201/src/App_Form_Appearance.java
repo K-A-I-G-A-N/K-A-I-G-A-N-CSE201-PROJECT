@@ -2,10 +2,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JFileChooser;
@@ -45,17 +49,21 @@ public class App_Form_Appearance {
 		JFrame appForm = new JFrame();
 		appForm.setTitle("K A I G A N App Request Form");
 		appForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		appForm.setSize(550, 700);
+		appForm.setSize(600, 700);
 		appForm.setResizable(false);
 		appForm.setLocationRelativeTo(null);
-		appForm.getContentPane().setBackground(new Color(255, 214, 178));
+		appForm.getContentPane().setBackground(new Color(57, 95, 201)); // Dark blue color
+		// Light blue color: 70,130,180
 		appForm.setLayout(null);
 
 		// Title
 
 		JLabel titleLabel = new JLabel("App Post Request Form");
 		titleLabel.setFont(new Font("Arial", Font.BOLD, 22));
-		titleLabel.setBounds(130, 20, 400, 40);
+		titleLabel.setBounds(180, 20, 400, 40);
+
+		titleLabel.setForeground(Color.WHITE);
+
 		appForm.add(titleLabel);
 
 		// App Name Field
@@ -65,9 +73,12 @@ public class App_Form_Appearance {
 		appNameLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		appForm.add(appNameLabel);
 
+		appNameLabel.setForeground(Color.WHITE);
+
 		appNameField = new JTextField();
 		appNameField.setBounds(200, 100, 200, 30);
 		appNameField.setFont(new Font("Arial", Font.BOLD, 16));
+
 		appForm.add(appNameField);
 
 		// App Category Field
@@ -75,6 +86,9 @@ public class App_Form_Appearance {
 		JLabel catLabel = new JLabel("App Category:");
 		catLabel.setBounds(75, 150, 200, 30);
 		catLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		catLabel.setForeground(Color.WHITE);
+
 		appForm.add(catLabel);
 
 		appCategoryField = new JTextField();
@@ -87,6 +101,9 @@ public class App_Form_Appearance {
 		JLabel pubLabel = new JLabel("App Publisher:");
 		pubLabel.setBounds(75, 200, 200, 30);
 		pubLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		pubLabel.setForeground(Color.WHITE);
+
 		appForm.add(pubLabel);
 
 		appPublisherField = new JTextField();
@@ -99,11 +116,17 @@ public class App_Form_Appearance {
 		JLabel priceLabel = new JLabel("App Price:");
 		priceLabel.setBounds(100, 250, 200, 30);
 		priceLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		priceLabel.setForeground(Color.WHITE);
+
 		appForm.add(priceLabel);
 
 		appPriceField = new JTextField();
 		appPriceField.setBounds(200, 250, 200, 30);
 		appPriceField.setFont(new Font("Arial", Font.BOLD, 16));
+
+		Numvalidator(appPriceField);
+
 		appForm.add(appPriceField);
 
 		// Link to external App Place
@@ -111,6 +134,9 @@ public class App_Form_Appearance {
 		JLabel appLinkLabel = new JLabel("Link to App Store:");
 		appLinkLabel.setBounds(50, 300, 200, 30);
 		appLinkLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		appLinkLabel.setForeground(Color.WHITE);
+
 		appForm.add(appLinkLabel);
 
 		appLinkField = new JTextField();
@@ -121,22 +147,32 @@ public class App_Form_Appearance {
 		// App Description Field
 
 		JLabel descLabel = new JLabel("App Description:");
-		descLabel.setBounds(58, 350, 200, 30);
+		descLabel.setBounds(58, 350, 300, 30);
 		descLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		descLabel.setForeground(Color.WHITE);
+
 		appForm.add(descLabel);
 
 		appDescriptionField = new JTextArea();
-		appDescriptionField.setBounds(200, 350, 200, 75);
+
 		appDescriptionField.setFont(new Font("Arial", Font.BOLD, 12));
 		appDescriptionField.setLineWrap(true);
 		appDescriptionField.setWrapStyleWord(true);
-		appForm.add(appDescriptionField);
+
+		JScrollPane scrollpane = new JScrollPane(appDescriptionField);
+		scrollpane.setBounds(200, 350, 300, 75);
+
+		appForm.add(scrollpane);
 
 		// App Platform Field
 
 		JLabel platLabel = new JLabel("App Platform(s):");
-		platLabel.setBounds(75, 450, 200, 30);
+		platLabel.setBounds(65, 450, 200, 30);
 		platLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		platLabel.setForeground(Color.WHITE);
+
 		appForm.add(platLabel);
 
 		appPlatField = new JTextField();
@@ -149,6 +185,9 @@ public class App_Form_Appearance {
 		JLabel uploadLabel = new JLabel("App Icon:");
 		uploadLabel.setBounds(110, 500, 200, 30);
 		uploadLabel.setFont(new Font("Arial", Font.BOLD, 16));
+
+		uploadLabel.setForeground(Color.WHITE);
+
 		appForm.add(uploadLabel);
 
 		uploadButton = new JButton("Upload");
@@ -165,7 +204,7 @@ public class App_Form_Appearance {
 		// Submit Button
 
 		submitButton = new JButton("Submit");
-		submitButton.setBounds(200, 550, 100, 40);
+		submitButton.setBounds(200, 575, 200, 40);
 		appForm.add(submitButton);
 
 		submitButton.addActionListener(new ActionListener() {
@@ -188,7 +227,7 @@ public class App_Form_Appearance {
 					File destFolder = new File("src/newAppInfo/Img_Temp");
 
 					if (!destFolder.exists()) {
-						destFolder.mkdirs(); 
+						destFolder.mkdirs();
 					}
 
 					File destFile = new File(destFolder, imageIcon.getName());
@@ -204,10 +243,10 @@ public class App_Form_Appearance {
 						e.printStackTrace();
 					}
 
-					try (FileWriter fw = new FileWriter("Request.txt", true)) { 
-					    fw.write(appInfo + System.lineSeparator());
+					try (FileWriter fw = new FileWriter("Request.txt", true)) {
+						fw.write(appInfo + System.lineSeparator());
 					} catch (IOException e) {
-					    e.printStackTrace();
+						e.printStackTrace();
 					}
 
 					System.out.println("Destination File at: " + destFile.getAbsolutePath());
@@ -221,10 +260,9 @@ public class App_Form_Appearance {
 		appForm.setVisible(true);
 	}
 
-
 	public static File fileGet() {
 		JFileChooser fileChooser = new JFileChooser();
-		int returnValue = fileChooser.showOpenDialog(null); 
+		int returnValue = fileChooser.showOpenDialog(null);
 
 		if (returnValue == JFileChooser.APPROVE_OPTION) {
 			File selectedFile = fileChooser.getSelectedFile();
@@ -235,6 +273,20 @@ public class App_Form_Appearance {
 			System.out.println("File selection cancelled.");
 		}
 		return imageIcon;
+	}
+
+	public static void Numvalidator(JTextField txtField) {
+		txtField.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_PERIOD) || (c == KeyEvent.VK_BACK_SPACE)
+						|| (c == KeyEvent.VK_DELETE))) {
+					e.consume();
+					JOptionPane.showMessageDialog(null, "Only numbers and periods are allowed", "Attention",
+							JOptionPane.PLAIN_MESSAGE);
+				}
+			}
+		});
 	}
 
 }
